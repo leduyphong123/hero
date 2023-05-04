@@ -1,8 +1,9 @@
-import { cv, ctx, hero } from "../index.js";
+import { cv, ctx, hero, monsters } from "../index.js";
 
 
 // let defual = false;
-function Monster(img,imgIndex,imgX,imgY) {
+function Monster(name,img,imgIndex,imgX,imgY) {
+    this.name=name;
     this.positer = {
         x: Math.floor(Math.random() * 900),
         y: Math.floor(Math.random() * 500)
@@ -24,15 +25,14 @@ function Monster(img,imgIndex,imgX,imgY) {
     this.status = {
         hpDefault: 100,
         hpNew: 100,
-        dmg: 100,
+        dmg: 1,
     };
-    this.isDmgHero = function () {
-        if(this.status.hpNew>0){
-            this.status.hpNew -= hero.status.dmg;            
+    this.dmgHero = function (name,indexMonter) {
+        if(this.status.hpNew>0 && this.name==name){
+            this.status.hpNew -= hero.status.dmg;  
+        }else{
+            monsters.splice(indexMonter,1);
         }
-        // if(this.status.hpNew<=0){
-        //     hero.status.hpNew=hero.status.hpDefault;
-        // }
         
     }
     this.draw = function () {

@@ -1,4 +1,4 @@
-import { cv, ctx,hero,monsters, } from "../index.js";
+import {ctx,hero } from "../index.js";
 
 
 

@@ -150,8 +150,8 @@ function direction() {
             && hero.isAttack
             && valueAttack == 1
         ) {
-            monsters[i].isDmgHero();
-            hero.isDmgMonster(monsters[i],i);
+            monsters[i].dmgHero(monsters[i].name,i);
+            hero.dmgMonster(monsters[i]);
         }
     }
 

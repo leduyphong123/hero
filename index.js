@@ -1,15 +1,19 @@
 import Hero from "./entity/hero.js";
 import Monster from "./entity/monster.js";
 import Map from "./entity/map.js";
+import Tree from "./entity/tree.js";
 import { direction, isDirection } from "./service/direction.js";
 
 let cv = document.getElementById("canvas");
 let ctx = cv.getContext("2d");
 let monsters = [];
+let trees = [];
 cv.width = 1024;
 cv.height = 570;
 //audio
 let audioGame = new Audio("audio/music.mp3");
+let audioHeroAttack = new Audio("audio/hero/sfx_Attack_1.wav");
+let audioHeroRun = new Audio("audio/hero/sfx_Fall.wav");
 
 //img monster
 let monster = new Image();
@@ -21,6 +25,8 @@ monsterSnake.src = "./img/monster/Snake.png";
 //img 
 let backgorund = new Image();
 backgorund.src = "./img/map/background.png";
+let tree = new Image();
+tree.src = "./img/map/tree.PNG";
 let heroImg = new Image();
 heroImg.src = "./img/hero/player.png";
 let hero = new Hero({ x: cv.width / 2, y: cv.height / 2 }, heroImg);
@@ -36,6 +42,7 @@ function startGame() {
     map.update();
     hero.update();
     addMonsters();
+    addTrees();
     direction();
     valueAttack = 0;
     if (hero.status.hpNew <= 0) {
@@ -54,19 +61,32 @@ function play() {
     if (hero.status.hpNew > 0) {
         hidden.style.display = "none";
         cv.style.display = "flex";
-        // audioGame.play();
+        audioGame.play();
         startGame();
     }
 }
+let name = 1;
 
 function addMonsters() {
-    if (monsters.length < 12) {
-        monsters.push(new Monster(monster, 4, 32, 32));
-        monsters.push(new Monster(monsterBeatle, 4, 16, 16));
-        monsters.push(new Monster(monsterSnake, 4, 16, 16));
+    if (monsters.length < 9) {
+        monsters.push(new Monster(name, monster, 4, 32, 32));
+        monsters.push(new Monster(name + 1, monsterBeatle, 4, 16, 16));
+        monsters.push(new Monster(name + 2, monsterSnake, 4, 16, 16));
+        name += 3
     }
     for (let i in monsters) {
         monsters[i].update();
+
+    }
+}
+
+function addTrees() {
+    if (trees.length < 5) {
+        trees.push(new Tree(tree));
+    }
+
+    for (let i in trees) {
+        trees[i].update();
 
     }
 }
@@ -78,25 +98,27 @@ window.addEventListener("keydown", (evt) => {
             isDirection.right = true;
             keyDirection = "right";
             hero.attackBox.velocity.x = 30;
-
+            audioHeroRun.play();
             break;
         case "KeyA":
             isDirection.left = true;
             keyDirection = "left";
             hero.attackBox.velocity.x = -30;
+            audioHeroRun.play();
 
             break;
         case "KeyW":
             isDirection.up = true;
             keyDirection = "up";
             hero.attackBox.velocity.y = -30;
+            audioHeroRun.play();
 
             break;
         case "KeyS":
             isDirection.down = true;
             keyDirection = "down";
             hero.attackBox.velocity.y = +30;
-
+            audioHeroRun.play();
             break;
         case "Space":
             isDirection.attack = true;
@@ -121,6 +143,8 @@ window.addEventListener("keydown", (evt) => {
                 hero.imgIndex = hero.imgOb.attackDown.imgIndex;
 
             }
+        audioHeroAttack.play();
+
             break;
         default:
             break;
