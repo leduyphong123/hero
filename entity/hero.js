@@ -1,4 +1,4 @@
-import { cv, ctx, monsters, hero } from "../index.js";
+import {ctx } from "../index.js";
 
 
 function Hero(positer, img) {
@@ -44,12 +44,12 @@ function Hero(positer, img) {
         hpNew: 100,
         dmg: 10,
     };
-    this.isDmgMonster = function (indexMonter) {
+    this.isDmgMonster = function (indexMonter,i) {
 
         
 
         let stop = setInterval(() => {
-            if (indexMonter.status.hpNew > 0 && hero.status.hpNew>0) {
+            if (indexMonter.status.hpNew > 0 && this.status.hpNew>0) {
                 this.status.hpNew -= indexMonter.status.dmg;
             } else{
                 clearInterval(stop);
@@ -83,7 +83,6 @@ function Hero(positer, img) {
             this.framX = 0;
         }
         this.draw();
-
         this.positer.x += this.velocity.x;
         this.positer.y += this.velocity.y;
         this.attackBox.positer.x = this.positer.x + this.attackBox.velocity.x;

@@ -24,7 +24,7 @@ function Monster(img,imgIndex,imgX,imgY) {
     this.status = {
         hpDefault: 100,
         hpNew: 100,
-        dmg: 1,
+        dmg: 100,
     };
     this.isDmgHero = function () {
         if(this.status.hpNew>0){

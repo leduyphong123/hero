@@ -8,6 +8,9 @@ let ctx = cv.getContext("2d");
 let monsters = [];
 cv.width = 1024;
 cv.height = 570;
+//audio
+let audioGame = new Audio("audio/music.mp3");
+
 //img monster
 let monster = new Image();
 monster.src = "./img/monster/BatAlbino_Sheet.png";
@@ -15,7 +18,7 @@ let monsterBeatle = new Image();
 monsterBeatle.src = "./img/monster/Beatle.png";
 let monsterSnake = new Image();
 monsterSnake.src = "./img/monster/Snake.png";
-//img
+//img 
 let backgorund = new Image();
 backgorund.src = "./img/map/background.png";
 let heroImg = new Image();
@@ -26,15 +29,20 @@ let map = new Map({ x: 0, y: 0 }, backgorund.width, backgorund.height, backgorun
 //key
 let keyDirection;
 let valueAttack = 0;
+let stopGame;
 function startGame() {
-    window.requestAnimationFrame(startGame);
+    stopGame = window.requestAnimationFrame(startGame);
     ctx.clearRect(0, 0, cv.width, cv.height);
     map.update();
     hero.update();
     addMonsters();
     direction();
     valueAttack = 0;
-
+    if (hero.status.hpNew <= 0) {
+        window.cancelAnimationFrame(stopGame);
+        alert("game over");
+        location.reload();
+    }
 }
 //play game
 let start = document.getElementById("play");
@@ -43,14 +51,11 @@ let hidden = document.getElementById("status");
 cv.style.display = "none";
 
 function play() {
-    if(hero.status.hpNew>0){
-
+    if (hero.status.hpNew > 0) {
         hidden.style.display = "none";
         cv.style.display = "flex";
+        // audioGame.play();
         startGame();
-    }else{
-        hidden.style.display = "flex";
-        cv.style.display = "none";
     }
 }
 
