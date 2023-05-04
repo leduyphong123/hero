@@ -12,6 +12,7 @@ cv.width = 1024;
 cv.height = 570;
 //audio
 let audioGame = new Audio("audio/music.mp3");
+audioGame.loop=true;
 let audioHeroAttack = new Audio("audio/hero/sfx_Attack_1.wav");
 let audioHeroRun = new Audio("audio/hero/sfx_Fall.wav");
 
@@ -56,7 +57,6 @@ let start = document.getElementById("play");
 start.addEventListener("click", play);
 let hidden = document.getElementById("status");
 cv.style.display = "none";
-
 function play() {
     if (hero.status.hpNew > 0) {
         hidden.style.display = "none";
