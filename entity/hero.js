@@ -1,4 +1,4 @@
-import {ctx,monsters } from "../index.js";
+import {ctx } from "../index.js";
 
 
 function Hero(positer, img) {

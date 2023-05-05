@@ -1,4 +1,4 @@
-import { hero, map, cv, monsters, valueAttack } from "../index.js";
+import { hero, cv, monsters, valueAttack } from "../index.js";
 
 let isDirection = {
     right: false,
